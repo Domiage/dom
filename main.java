@@ -83,25 +83,48 @@ public class main {
 								Node infosQualite = contenuMandat.item(c);
 								Node codeQualite = infosQualite.getFirstChild();
 								if (codeQualite.getTextContent().equals("Président")) {
+									mdd="<md code='";
 									for (int c2 = 0; c2 < nbContenuMandat; c2++) { // reparcours des noeuds de mandat
+										boolean organeRefOk = false;
+										boolean debutOk = false;
+										boolean legislatureOk = false;
+										boolean pubOk = false;
 										// System.out.println(contenuMandat.item(c2).getNodeName()); // retourne le nom
 										// des noeuds -> debug
-										if (contenuMandat.item(c2).getNodeName().equals("organes")) {
-											organeRef = contenuMandat.item(c2).getFirstChild().getTextContent();
-											//System.out.println("organeRef : " + organeRef);
-											mdd="<md code='"+organeRef+"'>"; // à poursuivre !
-											mdPresident.add(mdd);
-											//System.out.println("mdPresident : " + mdPresident);
-											//System.out.println("taille du tableau : k = " + mdPresident.size());							
-										}
+										
 										if (contenuMandat.item(c2).getNodeName().equals("dateDebut")) {
+											debutOk = true;
 											debut = contenuMandat.item(c2).getTextContent();
 										}
+										
+										if (contenuMandat.item(c2).getNodeName().equals("organes")) {
+											organeRefOk = true;
+											organeRef = contenuMandat.item(c2).getFirstChild().getTextContent();
+											//System.out.println("organeRef : " + organeRef);
+											
+											//System.out.println("mdPresident : " + mdPresident);
+											//System.out.println("taille du tableau : k = " + mdPresident.size());	
+											mdd+=organeRef+"' début='" + debut + ">"; // à poursuivre !
+											//System.out.println("organeRef : " + organeRef);
+											
+										}
+										
+										
+										
+										
+										
+										
 										if (contenuMandat.item(c2).getNodeName().equals("legislature")) {
 											legislature = contenuMandat.item(c2).getTextContent();
+											//mdd+=debut;
 										}
 										if (contenuMandat.item(c2).getNodeName().equals("datePublication")) {
 											pub= contenuMandat.item(c2).getTextContent();
+											//mdd+=debut;
+										}
+										
+										if(organeRefOk ) { //&& debutOk
+											mdPresident.add(mdd);
 										}
 										//System.out.println("organeRef : " + organeRef);
 										//mdd="<md code='"+organeRef+"'>"; // à poursuivre !
@@ -110,11 +133,10 @@ public class main {
 									}
 								}
 							}
-
 						}
 					}
 					//System.out.println("je suis avant le pa");
-					System.out.println("taille du tableau : k = " + mdPresident.size());
+					//System.out.println("taille du tableau : k = " + mdPresident.size());
 					if(mdPresident.size()!=0){
 						System.out.println("<personne nom='" + prenom.getTextContent() + " " + nom.getTextContent() + "'>");
 						for(int k = 0 ; k< mdPresident.size();k++)
@@ -123,7 +145,6 @@ public class main {
 						}
 						mdPresident.clear();
 					}
-
 				}
 			}
 			System.out.println("</nantais>");
