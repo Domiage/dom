@@ -104,7 +104,7 @@ public class main {
 											
 											//System.out.println("mdPresident : " + mdPresident);
 											//System.out.println("taille du tableau : k = " + mdPresident.size());	
-											mdd+=organeRef+"' début='" + debut + ">"; // à poursuivre !
+											mdd+=organeRef+"' début='" + debut + " legislature=" + legislature + " pub=" + pub + " >"; // à poursuivre !
 											//System.out.println("organeRef : " + organeRef);
 											
 										}
@@ -116,6 +116,10 @@ public class main {
 										
 										if (contenuMandat.item(c2).getNodeName().equals("legislature")) {
 											legislature = contenuMandat.item(c2).getTextContent();
+											//mdd+=debut;
+										}
+										if (contenuMandat.item(c2).getNodeName().equals("dateFin")) {
+											fin= contenuMandat.item(c2).getTextContent();
 											//mdd+=debut;
 										}
 										if (contenuMandat.item(c2).getNodeName().equals("datePublication")) {
