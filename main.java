@@ -137,6 +137,7 @@ public class main {
 						for(int k = 0 ; k< mdPresident.size();k++)
 						{
 							System.out.println(mdPresident.get(k));
+							System.out.println("ICI"); //afficher ici le libellé correspondant !
 						}
 						mdPresident.clear();
 					}
