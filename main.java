@@ -86,14 +86,10 @@ public class main {
 									mdd="<md code='";
 									for (int c2 = 0; c2 < nbContenuMandat; c2++) { // reparcours des noeuds de mandat
 										boolean organeRefOk = false;
-										boolean debutOk = false;
-										boolean legislatureOk = false;
-										boolean pubOk = false;
 										// System.out.println(contenuMandat.item(c2).getNodeName()); // retourne le nom
 										// des noeuds -> debug
 										
 										if (contenuMandat.item(c2).getNodeName().equals("dateDebut")) {
-											debutOk = true;
 											debut = contenuMandat.item(c2).getTextContent();
 										}
 										
@@ -104,36 +100,29 @@ public class main {
 											
 											//System.out.println("mdPresident : " + mdPresident);
 											//System.out.println("taille du tableau : k = " + mdPresident.size());	
-											mdd+=organeRef+"' début='" + debut + " legislature=" + legislature + " fin=" + fin + " pub=" + pub + " >"; // à poursuivre !
-											//System.out.println("organeRef : " + organeRef);
-											
+											mdd+=organeRef+"' début='" + debut + " legislature=" + legislature; // à poursuivre !
+											// on ajoute la date de fin si elle est présente
+											if(fin != "") {
+												mdd+=" fin=" + fin;
+											}
+											// on ajoute la date de publication si elle est présente
+											if(pub != "") {
+												mdd+=" pub=" + pub;
+											}
+											mdd+=">";
 										}
-										
-										
-										
-										
-										
-										
 										if (contenuMandat.item(c2).getNodeName().equals("legislature")) {
 											legislature = contenuMandat.item(c2).getTextContent();
-											//mdd+=debut;
 										}
 										if (contenuMandat.item(c2).getNodeName().equals("dateFin")) {
 											fin= contenuMandat.item(c2).getTextContent();
-											//mdd+=debut;
 										}
 										if (contenuMandat.item(c2).getNodeName().equals("datePublication")) {
 											pub= contenuMandat.item(c2).getTextContent();
-											//mdd+=debut;
 										}
-										
-										if(organeRefOk ) { //&& debutOk
+										if(organeRefOk ) {
 											mdPresident.add(mdd);
 										}
-										//System.out.println("organeRef : " + organeRef);
-										//mdd="<md code='"+organeRef+"'>"; // à poursuivre !
-										//mdPresident.add(mdd);
-										//System.out.println(mdPresident);
 									}
 								}
 							}
