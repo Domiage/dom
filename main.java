@@ -88,6 +88,11 @@ public class main {
 										// des noeuds -> debug
 										if (contenuMandat.item(c2).getNodeName().equals("organes")) {
 											organeRef = contenuMandat.item(c2).getFirstChild().getTextContent();
+											//System.out.println("organeRef : " + organeRef);
+											mdd="<md code='"+organeRef+"'>"; // à poursuivre !
+											mdPresident.add(mdd);
+											//System.out.println("mdPresident : " + mdPresident);
+											//System.out.println("taille du tableau : k = " + mdPresident.size());							
 										}
 										if (contenuMandat.item(c2).getNodeName().equals("dateDebut")) {
 											debut = contenuMandat.item(c2).getTextContent();
@@ -98,62 +103,28 @@ public class main {
 										if (contenuMandat.item(c2).getNodeName().equals("datePublication")) {
 											pub= contenuMandat.item(c2).getTextContent();
 										}
-										mdd="<md code='"+organeRef+"'>"; // à poursuivre !
-										mdPresident.add(mdd);
+										//System.out.println("organeRef : " + organeRef);
+										//mdd="<md code='"+organeRef+"'>"; // à poursuivre !
+										//mdPresident.add(mdd);
+										//System.out.println(mdPresident);
 									}
 								}
 							}
 
 						}
 					}
-					if(mdPresident.size()!=0)
-					{
+					//System.out.println("je suis avant le pa");
+					System.out.println("taille du tableau : k = " + mdPresident.size());
+					if(mdPresident.size()!=0){
 						System.out.println("<personne nom='" + prenom.getTextContent() + " " + nom.getTextContent() + "'>");
-						for(int k = 2 ; k< mdPresident.size();k++)
+						for(int k = 0 ; k< mdPresident.size();k++)
 						{
 							System.out.println(mdPresident.get(k));
-							mdPresident.clear();
-
 						}
-
+						mdPresident.clear();
 					}
 
-					// affichage dans le for des acteurs !!!
-					/*
-					 * if (nantais && president) { Node identite = etatCivil.getFirstChild(); Node
-					 * prenom = identite.getFirstChild().getNextSibling(); Node nom =
-					 * prenom.getNextSibling(); System.out.println("<personne nom='" +
-					 * prenom.getTextContent() + " " + nom.getTextContent() + "'>");
-					 * 
-					 * // parcours des mandats de la personne for (int md=0; md<mdPresident.size();
-					 * md++) { System.out.println("<md..."); } }
-					 */
-
-					// on réutilise le i de la boucle acteur
-					// NodeList mandatss = acteur.item(i).getLastChild().getChildNodes();
-					// System.out.println("mandats : " + mandatss);
-
-					/*
-					 * if(president == true) { Node identPersonneSelectionnee =
-					 * etatCivilPersonneSelectionnee.getFirstChild(); Node prenom =
-					 * identPersonneSelectionnee.getFirstChild().getNextSibling(); Node nom =
-					 * prenom.getNextSibling();
-					 * 
-					 * System.out.println("<personne nom='" + prenom.getTextContent() + " " +
-					 * nom.getTextContent() + "'>"); // affichage du contenu de l'arraylist }
-					 */
-
 				}
-				/*
-				 * if (nantais && mdPresident.size()>0) { Node identite =
-				 * etatCivil.getFirstChild(); Node prenom =
-				 * identite.getFirstChild().getNextSibling(); Node nom =
-				 * prenom.getNextSibling(); System.out.println("<personne nom='" +
-				 * prenom.getTextContent() + " " + nom.getTextContent() + "'>");
-				 * 
-				 * // parcours des mandats de la personne for (int md=0; md<mdPresident.size();
-				 * md++) { System.out.println("<md..."); } }
-				 */
 			}
 			System.out.println("</nantais>");
 		} catch (ParserConfigurationException e) {
