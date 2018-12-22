@@ -20,17 +20,16 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 
 public class main {
-	public static void main(final String[] args) throws SAXException, IOException {
+	public static void main(final String[] args) {
 		Node prenom;
 		Node nom;
-		String mdd ="";
-		String organeRef="";
+		String mdd =""; //contient la chaîne de caractères correspondant à la balise md
+		String organeRef=""; //code
 		String debut="";
 		String legislature ="";
 		String fin ="";
 		String pub ="";
-		List<String> mdPresident = new ArrayList<String>();
-		Map <String,List<String>> mesMandats = new HashMap<String,List<String>>();
+		List<String> mdPresident = new ArrayList<String>();//contiendra les différents mandats 
 		String xmlStr = "<?xml version=\"1.0\" encoding=\"UTF-8\">";
 		System.out.println(xmlStr);
 		String doctype = "<!DOCTYPE nantais SYSTEM \"ex.dtd\">";
@@ -48,6 +47,7 @@ public class main {
 			ErrorHandler errHandler = new SimpleErrorHandler();
 			builder.setErrorHandler(errHandler);
 
+			// chargement du fichier historique.xml
 			Document document = builder.parse(new File("historique.xml"));
 
 			Node racine = document.getDocumentElement();
@@ -58,6 +58,7 @@ public class main {
 			// affichage de la racine du document xml export
 			// System.out.println("<" + racine.getNodeName() + ">");
 
+			// parcours de chaque personne
 			int nbActeur = acteur.getLength();
 			for (int i = 0; i < nbActeur; i++) {
 				// List<String> mdPresident = new ArrayList<String>(); //contiendra les
@@ -67,14 +68,18 @@ public class main {
 				Node villeNais = infoNais.getFirstChild().getNextSibling();
 				prenom = etatCivil.getFirstChild().getFirstChild().getNextSibling();
 				nom = prenom.getNextSibling();
+				
 				// sélection de la ville de Nantes
 				if (villeNais.getTextContent().equals("Nantes")) {
 					NodeList mandat = acteur.item(i).getLastChild().getChildNodes(); // mandats de l'acteur
+					
+					// parcours de chaque mandat de la personne nantaise
 					for (int m = 0; m < mandat.getLength(); m++) { // m = mandat
 						// contient l'ensemble du contenu du noeud mandat
 						NodeList contenuMandat = mandat.item(m).getChildNodes(); // contenu du mandat
 						int nbContenuMandat = contenuMandat.getLength();
-						// parcourt des noeuds fils de mandat
+						
+						// parcourt de l'ensemble des noeuds fils de mandat
 						for (int c = 0; c < nbContenuMandat; c++) { // c = contenu
 							// on sélectionne le noeud "infosQualite"
 							if (contenuMandat.item(c).getNodeName().equals("infosQualite")
@@ -82,6 +87,8 @@ public class main {
 								// on se positionne dans le noeud infosQualite
 								Node infosQualite = contenuMandat.item(c);
 								Node codeQualite = infosQualite.getFirstChild();
+								
+								// sélection des mandats en tant que président
 								if (codeQualite.getTextContent().equals("Président")) {
 									mdd="<md code='";
 									for (int c2 = 0; c2 < nbContenuMandat; c2++) { // reparcours des noeuds de mandat
@@ -96,11 +103,7 @@ public class main {
 										if (contenuMandat.item(c2).getNodeName().equals("organes")) {
 											organeRefOk = true;
 											organeRef = contenuMandat.item(c2).getFirstChild().getTextContent();
-											//System.out.println("organeRef : " + organeRef);
-											
-											//System.out.println("mdPresident : " + mdPresident);
-											//System.out.println("taille du tableau : k = " + mdPresident.size());	
-											mdd+=organeRef+"' début='" + debut + " legislature=" + legislature; // à poursuivre !
+											mdd+=organeRef+"' début='" + debut + " legislature=" + legislature;
 											// on ajoute la date de fin si elle est présente
 											if(fin != "") {
 												mdd+=" fin=" + fin;
