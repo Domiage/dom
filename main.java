@@ -104,7 +104,7 @@ public class main {
 											
 											//System.out.println("mdPresident : " + mdPresident);
 											//System.out.println("taille du tableau : k = " + mdPresident.size());	
-											mdd+=organeRef+"' début='" + debut + " legislature=" + legislature + " pub=" + pub + " >"; // à poursuivre !
+											mdd+=organeRef+"' début='" + debut + " legislature=" + legislature + " fin=" + fin + " pub=" + pub + " >"; // à poursuivre !
 											//System.out.println("organeRef : " + organeRef);
 											
 										}
@@ -139,7 +139,6 @@ public class main {
 							}
 						}
 					}
-					//System.out.println("je suis avant le pa");
 					//System.out.println("taille du tableau : k = " + mdPresident.size());
 					if(mdPresident.size()!=0){
 						System.out.println("<personne nom='" + prenom.getTextContent() + " " + nom.getTextContent() + "'>");
