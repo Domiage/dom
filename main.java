@@ -143,84 +143,23 @@ public class main {
 						for(int k = 0 ; k< mdPresident.size();k++)
 						{
 							System.out.println(mdPresident.get(k));
-							//organeRef = contenuMandat.item(c2).getFirstChild().getTextContent();
-							//System.out.println("uidMandat/organeRef : " + organeRef); //test valeur uid dans acteur !
-							
-							/*
-							for (int l = 0; l < listeCodePO.size(); l++) {
-								System.out.println(listeCodePO);
-							}
-							listeCodePO.clear();*/
-							
-							
-							
-							//System.out.println("ICI"); //afficher ici le libellé correspondant !
 							NodeList organes2 = racine.getFirstChild().getChildNodes();
 							
-							
+							// récupération du codePO de chaque mandat
 							String identifiant = listeCodePO.get(0);
 							
-							System.out.println(listeCodePO.get(0));
+							// si plusieurs mandats de présidents, on efface le mandat que l'on vient d'afficher (correspond à la première case de l'arraylist)
 							if (listeCodePO.size() > 1) {
 								listeCodePO.remove(0);
 							} else {
-								listeCodePO.clear();
+								listeCodePO.clear(); // on vide le tableau si on a traité le dernier mandat de président de la personne 
 							}
 							
 							
-							for (int o = 0; o < organes2.getLength(); o++) { // o = organe
-								
-								//System.out.println(listeCodePO.size());
-								/*
-								if (listeCodePO.size() > 0) {
-									for (int l = 0; l < listeCodePO.size(); l++) {
-										System.out.println(listeCodePO.size());
-										System.out.println(listeCodePO.get(0));
-									}
-								}
-								
-								System.out.println("ICI : " + listeCodePO.size());
-								if (listeCodePO.size() == 1) {
-									listeCodePO.clear();
-									System.out.println("CLEAR");
-								} else {
-									listeCodePO.remove(0);
-									System.out.println("REMOVE");
-								}*/
-								//listeCodePO.remove(0);
-								
-								//System.out.println("ICI1 : " + listeCodePO.size());
-								/*
-								if (listeCodePO.size() > 0) {
-									System.out.println("ICI1 : " + listeCodePO.size());
-								}
-								
-								for (int l = 0; l < listeCodePO.size(); l++) {
-									//System.out.println(listeCodePO.size());
-									System.out.println(listeCodePO.get(0));
-								}
-								if (listeCodePO.size() > 0) {
-									System.out.println("ICI2 : " + listeCodePO.size());
-								}
-								
-								if (listeCodePO.size() > 2) {
-									listeCodePO.remove(0);
-								} else {
-									listeCodePO.clear();
-								}*/
-								
-								
-								
-								
-								//System.out.println("ICI");
-								//organe.item(o).getNodeName().equals("uid") && organe.item(o).getTextContent().equals(uidMandat)
-								//System.out.println("uidOrgane : " + organes2.item(o).getFirstChild().getTextContent()); //OK !
-								
-								//organes2.item(o).getFirstChild().getNodeName().equals("uid") est inutile !?
-								// organes2.item(o).getFirstChild().getNodeName().equals("uid") && 
-								if (organes2.item(o).getFirstChild().getTextContent().equals(organeRef) ){
+							for (int o = 0; o < organes2.getLength(); o++) { // o = organe 
+								if (organes2.item(o).getFirstChild().getTextContent().equals(identifiant) ){
 									libelle = organes2.item(o).getFirstChild().getNextSibling().getNextSibling().getTextContent();
-									//System.out.println(libelle);
+									System.out.println(libelle);
 								}
 							}
 						}
