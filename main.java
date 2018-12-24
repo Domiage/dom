@@ -33,6 +33,7 @@ public class main {
 		String uidMandat="";
 		NodeList contenuMandat;
 		List<String> mdPresident = new ArrayList<String>();//contiendra les différents mandats 
+		List<String> listeCodePO = new ArrayList<String>();
 		String xmlStr = "<?xml version=\"1.0\" encoding=\"UTF-8\">";
 		System.out.println(xmlStr);
 		String doctype = "<!DOCTYPE nantais SYSTEM \"ex.dtd\">";
@@ -107,6 +108,7 @@ public class main {
 										if (contenuMandat.item(c2).getNodeName().equals("organes")) {
 											organeRefOk = true;
 											organeRef = contenuMandat.item(c2).getFirstChild().getTextContent();
+											listeCodePO.add(organeRef);
 											mdd+=organeRef+"' début='" + debut + " legislature=" + legislature;
 											// on ajoute la date de fin si elle est présente
 											if(fin != "") {
@@ -128,7 +130,7 @@ public class main {
 											pub= contenuMandat.item(c2).getTextContent();
 										}
 										if(organeRefOk ) {
-											mdPresident.add(mdd);
+											mdPresident.add(mdd); //ajout uniquement si on se trouve dans le noeud organeRef
 										}
 									}
 								}
@@ -142,16 +144,74 @@ public class main {
 						{
 							System.out.println(mdPresident.get(k));
 							//organeRef = contenuMandat.item(c2).getFirstChild().getTextContent();
-							System.out.println("uidMandat/organeRef : " + organeRef); //test valeur uid dans acteur !
+							//System.out.println("uidMandat/organeRef : " + organeRef); //test valeur uid dans acteur !
+							
+							/*
+							for (int l = 0; l < listeCodePO.size(); l++) {
+								System.out.println(listeCodePO);
+							}
+							listeCodePO.clear();*/
+							
 							
 							
 							//System.out.println("ICI"); //afficher ici le libellé correspondant !
 							NodeList organes2 = racine.getFirstChild().getChildNodes();
 							
-							// ne marche pas...
-							// parcours des fils du noeud organe, on sélectionne le libellé !
+							
+							String identifiant = listeCodePO.get(0);
+							
+							System.out.println(listeCodePO.get(0));
+							if (listeCodePO.size() > 1) {
+								listeCodePO.remove(0);
+							} else {
+								listeCodePO.clear();
+							}
+							
 							
 							for (int o = 0; o < organes2.getLength(); o++) { // o = organe
+								
+								//System.out.println(listeCodePO.size());
+								/*
+								if (listeCodePO.size() > 0) {
+									for (int l = 0; l < listeCodePO.size(); l++) {
+										System.out.println(listeCodePO.size());
+										System.out.println(listeCodePO.get(0));
+									}
+								}
+								
+								System.out.println("ICI : " + listeCodePO.size());
+								if (listeCodePO.size() == 1) {
+									listeCodePO.clear();
+									System.out.println("CLEAR");
+								} else {
+									listeCodePO.remove(0);
+									System.out.println("REMOVE");
+								}*/
+								//listeCodePO.remove(0);
+								
+								//System.out.println("ICI1 : " + listeCodePO.size());
+								/*
+								if (listeCodePO.size() > 0) {
+									System.out.println("ICI1 : " + listeCodePO.size());
+								}
+								
+								for (int l = 0; l < listeCodePO.size(); l++) {
+									//System.out.println(listeCodePO.size());
+									System.out.println(listeCodePO.get(0));
+								}
+								if (listeCodePO.size() > 0) {
+									System.out.println("ICI2 : " + listeCodePO.size());
+								}
+								
+								if (listeCodePO.size() > 2) {
+									listeCodePO.remove(0);
+								} else {
+									listeCodePO.clear();
+								}*/
+								
+								
+								
+								
 								//System.out.println("ICI");
 								//organe.item(o).getNodeName().equals("uid") && organe.item(o).getTextContent().equals(uidMandat)
 								//System.out.println("uidOrgane : " + organes2.item(o).getFirstChild().getTextContent()); //OK !
@@ -160,7 +220,7 @@ public class main {
 								// organes2.item(o).getFirstChild().getNodeName().equals("uid") && 
 								if (organes2.item(o).getFirstChild().getTextContent().equals(organeRef) ){
 									libelle = organes2.item(o).getFirstChild().getNextSibling().getNextSibling().getTextContent();
-									System.out.println(libelle);
+									//System.out.println(libelle);
 								}
 							}
 						}
