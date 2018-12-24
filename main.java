@@ -31,6 +31,7 @@ public class main {
 		String pub ="";
 		String libelle;
 		String uidMandat="";
+		NodeList contenuMandat;
 		List<String> mdPresident = new ArrayList<String>();//contiendra les différents mandats 
 		String xmlStr = "<?xml version=\"1.0\" encoding=\"UTF-8\">";
 		System.out.println(xmlStr);
@@ -78,7 +79,7 @@ public class main {
 					// parcours de chaque mandat de la personne nantaise
 					for (int m = 0; m < mandat.getLength(); m++) { // m = mandat
 						// contient l'ensemble du contenu du noeud mandat
-						NodeList contenuMandat = mandat.item(m).getChildNodes(); // contenu du mandat
+						contenuMandat = mandat.item(m).getChildNodes(); // contenu du mandat
 						int nbContenuMandat = contenuMandat.getLength();
 						
 						// parcourt de l'ensemble des noeuds fils de mandat
@@ -140,25 +141,28 @@ public class main {
 						for(int k = 0 ; k< mdPresident.size();k++)
 						{
 							System.out.println(mdPresident.get(k));
-							
-							System.out.println("uidMandat : " + uidMandat); //test valeur uid dans acteur ! 
-							
-							
-							
+							//organeRef = contenuMandat.item(c2).getFirstChild().getTextContent();
+							System.out.println("uidMandat/organeRef : " + organeRef); //test valeur uid dans acteur !
 							
 							
 							//System.out.println("ICI"); //afficher ici le libellé correspondant !
-							NodeList organe = organes.getFirstChild().getChildNodes();
+							NodeList organes2 = racine.getFirstChild().getChildNodes();
 							
 							// ne marche pas...
 							// parcours des fils du noeud organe, on sélectionne le libellé !
-							/*
-							for (int o = 0; o < organe.getLength(); o++) { // o = organe
-								if (organe.item(o).getNodeName().equals("libelle")){
-									libelle = organe.item(o).getTextContent();
+							
+							for (int o = 0; o < organes2.getLength(); o++) { // o = organe
+								//System.out.println("ICI");
+								//organe.item(o).getNodeName().equals("uid") && organe.item(o).getTextContent().equals(uidMandat)
+								//System.out.println("uidOrgane : " + organes2.item(o).getFirstChild().getTextContent()); //OK !
+								
+								//organes2.item(o).getFirstChild().getNodeName().equals("uid") est inutile !?
+								// organes2.item(o).getFirstChild().getNodeName().equals("uid") && 
+								if (organes2.item(o).getFirstChild().getTextContent().equals(organeRef) ){
+									libelle = organes2.item(o).getFirstChild().getNextSibling().getNextSibling().getTextContent();
 									System.out.println(libelle);
 								}
-							}*/
+							}
 						}
 						mdPresident.clear(); //on vide le tableau
 					}
