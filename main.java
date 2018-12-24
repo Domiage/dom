@@ -29,6 +29,8 @@ public class main {
 		String legislature ="";
 		String fin ="";
 		String pub ="";
+		String libelle;
+		String uidMandat="";
 		List<String> mdPresident = new ArrayList<String>();//contiendra les différents mandats 
 		String xmlStr = "<?xml version=\"1.0\" encoding=\"UTF-8\">";
 		System.out.println(xmlStr);
@@ -87,6 +89,7 @@ public class main {
 								// on se positionne dans le noeud infosQualite
 								Node infosQualite = contenuMandat.item(c);
 								Node codeQualite = infosQualite.getFirstChild();
+								uidMandat = contenuMandat.item(c).getFirstChild().getTextContent(); //on récupère l'id de chaque mandat
 								
 								// sélection des mandats en tant que président
 								if (codeQualite.getTextContent().equals("Président")) {
@@ -137,9 +140,27 @@ public class main {
 						for(int k = 0 ; k< mdPresident.size();k++)
 						{
 							System.out.println(mdPresident.get(k));
-							System.out.println("ICI"); //afficher ici le libellé correspondant !
+							
+							System.out.println("uidMandat : " + uidMandat); //test valeur uid dans acteur ! 
+							
+							
+							
+							
+							
+							//System.out.println("ICI"); //afficher ici le libellé correspondant !
+							NodeList organe = organes.getFirstChild().getChildNodes();
+							
+							// ne marche pas...
+							// parcours des fils du noeud organe, on sélectionne le libellé !
+							/*
+							for (int o = 0; o < organe.getLength(); o++) { // o = organe
+								if (organe.item(o).getNodeName().equals("libelle")){
+									libelle = organe.item(o).getTextContent();
+									System.out.println(libelle);
+								}
+							}*/
 						}
-						mdPresident.clear();
+						mdPresident.clear(); //on vide le tableau
 					}
 				}
 			}
